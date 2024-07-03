@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package cards;
+
+message Card {
+  enum Suit {
+    CLUBS = 0;
+    DIAMONDS = 1;
+    HEARTS = 2;
+    SPADES = 3;
+  }
+
+  enum Rank {
+    TWO = 0;
+    THREE = 1;
+    FOUR = 2;
+    FIVE = 3;
+    SIX = 4;
+    SEVEN = 5;
+    EIGHT = 6;
+    NINE = 7;
+    TEN = 8;
+    JACK = 9;
+    QUEEN = 10;
+    KING = 11;
+    ACE = 12;
+  }
+
+  Suit suit = 1;
+  Rank rank = 2;
+}
+
+message GameState {
+  enum State {
+    WAITING_FOR_PLAYERS = 0;
+    IN_PROGRESS = 1;
+    FINISHED = 2;
+  }
+
+  string game_id = 1;
+  State state = 2;
+  Deck deck = 3;
+  repeated Player players = 4;
+}
+
+message Player {
+  string player_id = 1;
+  Hand hand = 2;
+}
+
+message Hand {
+  repeated Card cards = 1;
+}
+
+message Deck {
+  repeated Card cards = 1;
+}
+
+service DeckService {
+  rpc CreateGame (CreateGameRequest) returns (CreateGameResponse);
+}
+
+message CreateGameRequest {
+  repeated string player_ids = 1;
+}
+message CreateGameResponse {
+  GameState game_state = 1;
+}

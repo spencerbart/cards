@@ -1,0 +1,21 @@
+[package]
+name = "backend"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+dashmap = "6.0.1"
+nanoid = "0.4.0"
+prost = "0.12.6"
+rand = "0.8.5"
+strum = { version = "0.26.3", features = ["derive"] }
+strum_macros = "0.26.4"
+tokio = { version = "1.38.0", features = ["full"] }
+tonic = "0.11.0"
+tower = { version = "0.4.13", features = ["full"] }
+tower-http = { version = "0.4.4", features = ["full"] }
+tracing = "0.1.40"
+tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
+
+[build-dependencies]
+tonic-build = "0.11.0"
