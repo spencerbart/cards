@@ -8,7 +8,8 @@ use crate::cards_proto::card::{Rank, Suit};
 use crate::cards_proto::deck_service_server::{DeckService, DeckServiceServer};
 use crate::cards_proto::game_state::State;
 use crate::cards_proto::{
-    Card, CreateGameRequest, CreateGameResponse, Deck, GameState, Hand, Player,
+    Card, CreateGameRequest, CreateGameResponse, Deck, GameState, GetGameRequest, GetGameResponse,
+    GetGamesRequest, GetGamesResponse, Hand, Player,
 };
 use crate::AppContext;
 
@@ -59,6 +60,36 @@ impl DeckService for Service {
         Ok(Response::new(CreateGameResponse {
             game_state: Some(game_state),
         }))
+    }
+
+    async fn get_game(
+        &self,
+        request: Request<GetGameRequest>,
+    ) -> Result<Response<GetGameResponse>, Status> {
+        let game_id = request.get_ref().game_id.clone();
+        let game_state = self
+            .ctx
+            .game_states
+            .get(&game_id)
+            .ok_or_else(|| Status::not_found("Game not found"))?;
+
+        Ok(Response::new(GetGameResponse {
+            game_state: Some(game_state.clone()),
+        }))
+    }
+
+    async fn get_games(
+        &self,
+        _request: Request<GetGamesRequest>,
+    ) -> Result<Response<GetGamesResponse>, Status> {
+        let game_ids = self
+            .ctx
+            .game_states
+            .iter()
+            .map(|entry| entry.key().clone())
+            .collect::<Vec<String>>();
+
+        Ok(Response::new(GetGamesResponse { game_ids }))
     }
 }
 

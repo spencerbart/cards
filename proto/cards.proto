@@ -58,6 +58,8 @@ message Deck {
 
 service DeckService {
   rpc CreateGame (CreateGameRequest) returns (CreateGameResponse);
+  rpc GetGame (GetGameRequest) returns (GetGameResponse);
+  rpc GetGames (GetGamesRequest) returns (GetGamesResponse);
 }
 
 message CreateGameRequest {
@@ -65,4 +67,16 @@ message CreateGameRequest {
 }
 message CreateGameResponse {
   GameState game_state = 1;
+}
+
+message GetGameRequest {
+  string game_id = 1;
+}
+message GetGameResponse {
+  GameState game_state = 1;
+}
+
+message GetGamesRequest {}
+message GetGamesResponse {
+  repeated string game_ids = 1;
 }
