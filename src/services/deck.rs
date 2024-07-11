@@ -1,6 +1,5 @@
 use nanoid::nanoid;
 use rand::seq::SliceRandom;
-use rand::thread_rng;
 use strum::IntoEnumIterator;
 use tonic::{Request, Response, Status};
 

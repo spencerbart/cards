@@ -25,7 +25,7 @@ async fn main() {
     let deck_svc = deck_service(ctx);
 
     let layer = tower::ServiceBuilder::new()
-        .layer(TraceLayer::new_for_http())
+        .layer(TraceLayer::new_for_grpc())
         .into_inner();
 
     tracing::info!("Listening on {}", addr);
