@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+axum = "0.7.5"
 dashmap = "6.0.1"
 nanoid = "0.4.0"
 prost = "0.13.1"
